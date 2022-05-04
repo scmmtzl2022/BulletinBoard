@@ -1,0 +1,46 @@
+.form {
+  width: 390px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  text-align: center;
+  margin: 10% auto 10% auto;
+}
+.user_icon{
+  margin-top: 15px;
+}
+.input{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 10px;
+}
+.err{
+  color: #ff0000;
+}
+.create{
+  float: left;
+  margin-left: 30px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.create a, .forgot a{
+  color: #000;
+  text-decoration: none;
+}
+.forgot{
+  float: right;
+  margin-right: 120px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.clearfix:before,
+.clearfix:after {
+  display: block;
+  clear: both;
+  height: 0px;
+  visibility: hidden;
+  font-size: 0px;
+  content: "";
+}

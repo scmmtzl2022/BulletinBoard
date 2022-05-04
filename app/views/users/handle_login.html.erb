@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag "login_page.css" %>
+
+<div class="form">
+  
+  <h2>Member_Login</h2>
+  <%= form_with url: handle_login_url, local: "true" do |form| %>
+    <div class="input">
+      <%= form.text_field :attr, name: "email", placeholder: "Enter your email" %>
+    </div>
+    <div class="input">
+      <%= form.password_field :attr, name: "password", placeholder: "Enter your password" %>
+    </div>
+    
+  <% flash.each do |type, msg| %>
+   <div class="err">
+    <%= msg %>
+     </div>
+     <% end %>
+
+     <div class="custom-control custom-checkbox mv-20">
+        <%= check_box_tag :remember_me, 1, params[:remember_me], class: "custom-control-input", id: "remember-me", name: "remember_me" %>
+        <label class="custom-control-label" for="remember-me">Remember me?</label>
+     </div>
+
+      <%= form.submit :Login, class: 'btn button1 mv-20 btn-wid' %>
+
+    <div class="clearfix">
+
+    <div class="forgot">
+    <%= link_to "Forgot your password?" %>
+    </div>
+
+    </div>
+
+  <% end %>
+</div>
