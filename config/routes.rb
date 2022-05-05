@@ -56,8 +56,8 @@ Rails.application.routes.draw do
   # get 'authorized', to: 'sessions#page_requires_login'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :users
-  get "/handle_login", to: "users#handle_login"
-  post "/handle_login", to: "users#validate_login"
-  get "/logout", to: "users#logout"
+  # resources :users
+  # get "/handle_login", to: "users#handle_login"
+  # post "/handle_login", to: "users#validate_login"
+  # get "/logout", to: "users#logout"
 end
