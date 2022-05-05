@@ -22,12 +22,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.role ||= 1;
+    @user.role ||= user;
     if current_user.present?
-    @user.create_user_id = current_user.id
+    @user.created_user_id = current_user.id
     @user.updated_user_id = current_user.id
     else
-    @user.create_user_id = 1
+    @user.created_user_id = 1
     @user.updated_user_id = 1
     end
     
@@ -70,6 +70,9 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :profile, :role, :phone, :address, :dob,   :create_user_id, :updated_user_id, :deleted_user_id, :deleted_at)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :phone, :dob, :address, :profile, :created_user_id, :updated_user_id, :deleted_user_id, :deleted_at)
+    end
+    def user_update_params
+      params.require(:user).permit(:name, :email, :role, :phone, :dob, :address, :profile, :updated_user_id)
     end
 end

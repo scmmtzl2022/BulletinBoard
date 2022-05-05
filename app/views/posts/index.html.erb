@@ -23,10 +23,9 @@
     </tr>
 </thead>
 <tbody>
+<% if @posts.present? %>
     <tr>
-    <% @posts.each do |post| %>
-
-
+    <% @posts.each do |post| %>    
         <td><%= link_to post.title, post_path(post), {:remote => true, 'data-toggle' =>  "modal"} %></td>
         <td> <%= post.description %> </td>
         <td> <%= post.created_user.name %> </td>
@@ -54,9 +53,11 @@
                 </div>
             </div>
             </div>
-        </div>
-
-    </tr>
+        </div>          
+        <% end %>
+    </tr>  
+    <% else %> 
+    <p>No data available.</p>       
     <% end %>
 </tbody>
 

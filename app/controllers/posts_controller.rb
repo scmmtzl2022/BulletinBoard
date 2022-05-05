@@ -50,7 +50,7 @@ class PostsController < ApplicationController
       @post.updated_user_id = current_user.id
   
       if @post.update(post_update_params)
-        redirect_to @post, notice: "Post Updated!"
+        redirect_to '/posts', notice: "Post Updated!"
       else
         render :edit
       end

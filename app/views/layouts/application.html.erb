@@ -76,7 +76,7 @@
   }
 
   .btn-wid{
-    width: 30%;
+    width: 70%;
   }
 
   .blue{
@@ -113,7 +113,7 @@
 
   <body>
     <% if logged_in? %>
-      <%= render partial: 'shared/navbar' %>
+      <%= render partial: 'layouts/header' %>
     <% end %>
     <div class="container wrapper">
       <% if notice %>
