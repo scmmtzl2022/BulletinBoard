@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # validates email
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'Invalid email' }
   validates :password, confirmation: true, presence: true,on: :create
-  validates :name, :profile, presence: true
+  validates :name, presence: true
  
   # image
   has_one_attached :profile
