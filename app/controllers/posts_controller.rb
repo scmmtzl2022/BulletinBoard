@@ -25,7 +25,7 @@ class PostsController < ApplicationController
     def create
       @post = Post.new(post_params)
       @post.status = 1
-      @post.create_user_id = current_user.id
+      @post.created_user_id = current_user.id
       @post.updated_user_id = current_user.id
   
       if @post.save

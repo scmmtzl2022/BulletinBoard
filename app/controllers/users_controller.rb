@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  # skip_before_action :authorized, only: [:new, :create]
-  # skip_before_action :AdminAuthorized, except: [:destroy, :index]
+   skip_before_action :authorized, only: [:new, :create]
+   skip_before_action :AdminAuthorized, except: [:destroy, :index]
 
   def index
     @users = User.all
@@ -37,23 +37,6 @@ class UsersController < ApplicationController
     else
       render :new
     end
-  end
-
-  def validate_login
-    @user = User.find_by(email: params[:email])
-    if @user == nil
-      redirect_to handle_login_path, notice: "Please Create the Account"
-    elsif @user.authenticate(params[:password])
-
-      session[:user_id] = @user.id
-      redirect_to posts_path
-    elsif @user.password != params[:password]
-      redirect_to handle_login_path, notice: "Email and Password Missmatched"
-    end
-  end
-  def logout
-    session[:user_id] = nil
-    redirect_to root_path
   end
   
   def edit
