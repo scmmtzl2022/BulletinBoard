@@ -112,9 +112,9 @@
     </head>
 
   <body>
-   
-      <%= render partial: "shared/navbar" %>
-   
+    <% if logged_in? %>
+      <%= render partial: 'shared/navbar' %>
+    <% end %>
     <div class="container wrapper">
       <% if notice %>
         <%= render 'layouts/alerts' %>
@@ -122,9 +122,9 @@
       <%= yield %>
     </div>
 
-    
+    <% if logged_in? %>
       <%= render 'layouts/footer' %>
-    
+    <% end %>
   </body>
 </html>
 <script>

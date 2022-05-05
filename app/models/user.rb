@@ -4,10 +4,11 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  validates :name, presence: true
-  validates :email,presence: true, uniqueness: true , format: { with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/ }
-  validates :password,presence: true
-  
+  # validates email
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'Invalid email' }
+  validates :password, confirmation: true, presence: true,on: :create
+  validates :name, :profile, presence: true
+ 
   # image
   has_one_attached :profile
 end

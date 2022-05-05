@@ -121,7 +121,7 @@ GEM
     msgpack (1.5.1)
     mysql2 (0.5.4)
     nio4r (2.5.8)
-    nokogiri (1.13.4-x64-mingw32)
+    nokogiri (1.13.5-x64-mingw32)
       racc (~> 1.4)
     paranoia (2.6.0)
       activerecord (>= 5.1, < 7.1)
