@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.role ||= user;
+    @user.role ||= User;
     if current_user.present?
     @user.created_user_id = current_user.id
     @user.updated_user_id = current_user.id
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     
     if @user.save
       session[:user_id] = @user.id
-      redirect_to '/welcome'
+      redirect_to '/users'
     else
       render :new
     end

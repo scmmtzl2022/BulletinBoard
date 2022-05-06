@@ -2,13 +2,11 @@
 <h1 class="float-left">Posts</h1>
 
 <%= link_to "New Post", new_post_path, class: 'display btn button1 mv-20 float-right' %>
-<% if admin? %>
+<% if current_user.role == "admin" %>
     <%= link_to "Download",new_post_path, class: 'display btn button1  float-right mv-r-20' %>
     
     <%= link_to "Upload",new_post_path, class: 'display btn button1 float-right mv-r-20' %>
 <% end %>
-
-
 
 <div class="table-responsive">
 <table  id="table_id" class="table">
@@ -24,8 +22,9 @@
 </thead>
 <tbody>
 <% if @posts.present? %>
-    <tr>
-    <% @posts.each do |post| %>    
+    
+    <% @posts.each do |post| %>   
+        <tr> 
         <td><%= link_to post.title, post_path(post), {:remote => true, 'data-toggle' =>  "modal"} %></td>
         <td> <%= post.description %> </td>
         <td> <%= post.created_user.name %> </td>
@@ -53,10 +52,11 @@
                 </div>
             </div>
             </div>
-        </div>          
+        </div>  
+        </tr>          
         <% end %>
-    </tr>  
-    <% else %>        
+   
+    <% else %>    
     <% end %>
 </tbody>
 
