@@ -40,7 +40,6 @@
   h1{
     padding: 10px 0;
   }
-
   table{
     padding: 10px 0;
   }
@@ -52,7 +51,6 @@
   .mb-20{
     margin: 0 0 20px 0;
   }
-
   .mr-5{
     margin-right: 5px;
   }
@@ -113,14 +111,15 @@
 
   <body>
     <% if logged_in? %>
-      <%= render partial: 'layouts/header' %>
+      <%= render 'layouts/header' %>
     <% end %>
-    <div class="container wrapper">
+    
       <% if notice %>
         <%= render 'layouts/alerts' %>
       <% end %>
+      <div class="wrapper">
       <%= yield %>
-    </div>
+      </div>
 
     <% if logged_in? %>
       <%= render 'layouts/footer' %>

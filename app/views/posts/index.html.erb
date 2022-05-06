@@ -3,9 +3,9 @@
 
 <%= link_to "New Post", new_post_path, class: 'display btn button1 mv-20 float-right' %>
 <% if current_user.role == "admin" %>
-    <%= link_to "Download",new_post_path, class: 'display btn button1  float-right mv-r-20' %>
+    <%= link_to "Download",download_posts_path(format: :csv), class: 'display btn button1  float-right mv-r-20' %>
     
-    <%= link_to "Upload",new_post_path, class: 'display btn button1 float-right mv-r-20' %>
+    <%= link_to "Upload",upload_csv_posts_path, class: 'display btn button1 float-right mv-r-20' %>
 <% end %>
 
 <div class="table-responsive">

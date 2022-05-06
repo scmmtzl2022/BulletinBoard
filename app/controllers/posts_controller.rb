@@ -1,19 +1,22 @@
 class PostsController < ApplicationController 
-    def index
+  skip_before_action :authorized, only: [:index, :show]
+  skip_before_action :AdminAuthorized, except: []  
+  def index
       @posts = Post.all
     end 
 
-    def new
-      @post = Post.new
-    end
     def show
       @post = Post.find(params[:id])
     end
 
-    def search 
-      @posts = Post.where("posts.description LIKE ?",["%#{params[:query]}%"])
-      render "index"
+    def new
+      @post = Post.new
     end
+
+    # def search 
+    #   @posts = Post.where("posts.description LIKE ?",["%#{params[:query]}%"])
+    #   render "index"
+    # end
 
     def confirm_create
       @post = Post.new(post_params)
@@ -61,6 +64,32 @@ class PostsController < ApplicationController
       @post.destroy 
       redirect_to posts_path, notice: "Post deleted!"
     end
+    def download
+      @posts = Post.all
+      respond_to do |format|
+          format.html
+          format.csv { send_data @posts.to_csv,  :filename => "Post List.csv" }
+        end
+    end
+  
+    def import_csv
+        updated_user_id = current_user.id
+        create_user_id = current_user.id
+        if (params[:file].nil?)
+            redirect_to upload_csv_posts_path, notice: "Require File"        
+        elsif !File.extname(params[:file]).eql?(".csv")
+            redirect_to upload_csv_posts_path, notice: "Wrong File Type"  
+        else
+            error_msg = PostsHelper.check_header(["title", "description", "status"],params[:file])
+            if error_msg.present?
+                redirect_to upload_csv_posts_path, notice: error_msg
+            else 
+                Post.import(params[:file],create_user_id,updated_user_id)
+                redirect_to posts_path, notice: "Imported Successfully!"
+            end
+        end
+    end
+  
 
     private
     def post_params

@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :password, confirmation: true, presence: true,on: :create
   validates :name, presence: true
 
-   # soft-delete
+   #soft-delete
    acts_as_paranoid
  
   # image
