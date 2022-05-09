@@ -1,6 +1,6 @@
-<%= form_with model: @post do |form| %>
+<%= form_with(model: @post, local: true, url: confirm_posts_path) do |form| %>
   
-  <div class="form-group form-wrapper">
+  <div class="form-group form-wrapper form_confirm">
     <h1>New Post</h1>
     <div>
       <%= form.label :title, class:" col-form-label" %>
@@ -19,7 +19,7 @@
     </div>
 
     <div>
-      <%= form.submit "Done", class:"btn button1 mv-20" %>
+      <%= form.submit "Done", class:"btn button1 mv-20 form_confirm " %>
       <%= link_to 'Back', posts_path, class:"btn button1 button2 mv-20" %>
     </div>
   </div>

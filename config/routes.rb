@@ -5,17 +5,20 @@ Rails.application.routes.draw do
   # for posts
   resources :posts do
     collection do
-      get :confirm_create, to: "posts#new"
+      post 'posts/confirm', to: 'posts#confirm', as: 'confirm'
+      get :confirm, to: "posts#new"
       post :confirm_create
       get :upload_csv
       post :import_csv
       get :download
+      
     end
     member do
-      get :confirm_update, to: "posts#confirm_update"
-      post :confirm_update
+      post 'posts/confirm_update', to: "posts#confirm_update", as: 'confirm_update'
+      get :confirm_update, to: "posts#edit"
       post :update_post
     end
+   
   end
   #get "/search", to: "posts#search"
     # for users

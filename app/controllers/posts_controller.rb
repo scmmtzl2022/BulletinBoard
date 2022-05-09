@@ -2,8 +2,12 @@ class PostsController < ApplicationController
   skip_before_action :authorized, only: [:index, :show]
   skip_before_action :AdminAuthorized, except: []  
   def index
+    if current_user.role == "admin"
       @posts = Post.all
-    end 
+    else
+     @posts = Post.where(:created_user_id => current_user.id)    
+    end
+  end 
 
     def show
       @post = Post.find(params[:id])
@@ -12,17 +16,18 @@ class PostsController < ApplicationController
     def new
       @post = Post.new
     end
+    def preview
+      @post = Post.new(params[:post])
+    end
 
     # def search 
     #   @posts = Post.where("posts.description LIKE ?",["%#{params[:query]}%"])
     #   render "index"
     # end
+  
 
-    def confirm_create
+    def confirm
       @post = Post.new(post_params)
-      unless @post.valid?
-          render :new
-      end
     end
   
     def create
@@ -37,15 +42,13 @@ class PostsController < ApplicationController
         render :new
       end
     end
+
     def edit
       @post = Post.find(params[:id])
     end
   
     def confirm_update
       @post = Post.new(post_update_params)
-      unless @post.valid?
-          render :edit
-      end
     end
   
     def update

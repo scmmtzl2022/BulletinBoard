@@ -2,6 +2,9 @@ class Post < ApplicationRecord
   belongs_to :created_user, class_name: "User", foreign_key: "created_user_id"
   belongs_to :updated_user, class_name: "User", foreign_key: "updated_user_id"
   
+  # confirmation
+  attr_accessor :confirmation
+  validates_acceptance_of :confirmation, :on => :create
   # soft-delete
   acts_as_paranoid
 
