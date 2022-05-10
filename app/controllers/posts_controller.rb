@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   skip_before_action :authorized, only: [:index, :show]
   skip_before_action :AdminAuthorized, except: []  
   def index
-    if current_user.role == "admin"
+    if current_user.role == "0"
       @posts = Post.all
     else
      @posts = Post.where(:created_user_id => current_user.id)    
@@ -35,7 +35,6 @@ class PostsController < ApplicationController
       @post.status = 1
       @post.created_user_id = current_user.id
       @post.updated_user_id = current_user.id
-  
       if @post.save
         redirect_to posts_path, notice: "Post Created!"
       else
@@ -53,8 +52,7 @@ class PostsController < ApplicationController
   
     def update
       @post = Post.find(params[:id])
-      @post.updated_user_id = current_user.id
-  
+      @post.updated_user_id = current_user.id  
       if @post.update(post_update_params)
         redirect_to '/posts', notice: "Post Updated!"
       else
@@ -63,8 +61,10 @@ class PostsController < ApplicationController
     end
 
     def destroy
-      @post = Post.find(params[:id])
-      @post.destroy 
+      @post = Post.find(params[:id])    
+      @post.deleted_user_id = current_user.id  
+      @post.save   
+      @post.destroy                 
       redirect_to posts_path, notice: "Post deleted!"
     end
     def download
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
   
     def import_csv
         updated_user_id = current_user.id
-        create_user_id = current_user.id
+        created_user_id = current_user.id
         if (params[:file].nil?)
             redirect_to upload_csv_posts_path, notice: "Require File"        
         elsif !File.extname(params[:file]).eql?(".csv")
@@ -87,7 +87,7 @@ class PostsController < ApplicationController
             if error_msg.present?
                 redirect_to upload_csv_posts_path, notice: error_msg
             else 
-                Post.import(params[:file],create_user_id,updated_user_id)
+                Post.import(params[:file],created_user_id,updated_user_id)
                 redirect_to posts_path, notice: "Imported Successfully!"
             end
         end

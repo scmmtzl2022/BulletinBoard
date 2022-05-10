@@ -26,7 +26,7 @@
         <td><%= link_to user.name, user_path(user), {:remote => true, 'data-toggle' =>  "modal"} %></td>
         <td> <%= user.email %> </td>
         <td> <%= user.created_user.name %> </td>
-        <td> <%= user.role == 'admin' ? 'Admin' : 'User'  %> </td>
+        <td> <%= user.role == '0' ? 'Admin' : 'User'  %> </td>
         <td> <%= user.phone %> </td>
         <td> <%= user.dob %> </td>
         <td> <%= user.address %> </td>

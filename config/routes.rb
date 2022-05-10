@@ -36,16 +36,22 @@ Rails.application.routes.draw do
         get :change_password
         post :update_password
       end
+     
     end
     # for login
   get 'sessions/new'
   get 'sessions/create'
   get 'sessions/login'
+  get 'sessions/sign_up'
   get 'sessions/welcome'
 
   get 'login', to: 'sessions#new'
+  get 'sign_up', to: 'sessions#sign_up'
+ 
   get 'logout', to: 'sessions#logout'
   post 'login', to: 'sessions#create'
+  post 'sign_up', to: 'users#create'
+  
   get 'welcome', to: 'sessions#welcome'
   get 'authorized', to: 'sessions#page_requires_login'
   #login

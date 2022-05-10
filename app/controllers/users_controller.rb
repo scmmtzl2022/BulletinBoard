@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   skip_before_action :authorized, only: [:new, :create]
+   skip_before_action :authorized, only: [:new, :create, :sign_up]
    skip_before_action :AdminAuthorized, except: [:destroy, :index]
 
   def index
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.role ||= User;
+    @user.role ||= 1;
     if current_user.present?
     @user.created_user_id = current_user.id
     @user.updated_user_id = current_user.id
@@ -38,6 +38,10 @@ class UsersController < ApplicationController
       render :new
     end
   end
+  def sign_up
+    @user = User.new
+  end
+
   
   def edit
     @user = User.find(params[:id])

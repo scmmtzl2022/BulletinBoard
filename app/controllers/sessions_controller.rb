@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-   skip_before_action :authorized, only: [:new, :create, :welcome]
+   skip_before_action :authorized, only: [:new, :create, :sign_up, :welcome]
    skip_before_action :AdminAuthorized, except: [:page_requires_login]
 
   def new
@@ -22,6 +22,10 @@ class SessionsController < ApplicationController
     else
       redirect_to '/login', notice: "Email doesn't exist!"
     end
+  end
+
+  def sign_up
+    @user = User.new
   end
 
   def login
