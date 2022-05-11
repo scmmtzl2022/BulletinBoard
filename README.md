@@ -1,16 +1,15 @@
 # README
 * Ruby version (3.0.4)
 * Rails version (6.1.5.1)
-* TrailBlazer code can be found in Develop Branch
 
 # Gem Install
 * run: bundle install
 # DB migrate if you drop and create new datadase 
- bin/rails db:migrate RAILS_ENV=development 
+* bin/rails db:migrate RAILS_ENV=development 
 
  (or)
 
- rails db:migrate
+* rails db:migrate
 
 # Project Setup
 * delete or make comment these two lines in user.rb (temporarily)

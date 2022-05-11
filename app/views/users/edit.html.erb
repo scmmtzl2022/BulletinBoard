@@ -24,7 +24,7 @@
 
       <div>
         <%= form.label :Role, class:" col-form-label" %>
-        <%= form.select(:role, options_for_select([['admin','0'],['user','1']]], selected: @user.role.to_i), {}, class: "form-control" )%>
+        <%= form.select(:role, options_for_select([['admin','0'],['user','1']], selected: @user.role.to_i), {}, class: "form-control" )%>
       </div>
       
       <% end %>

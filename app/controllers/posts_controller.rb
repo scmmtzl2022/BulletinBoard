@@ -26,20 +26,52 @@ class PostsController < ApplicationController
     # end
   
 
-    def confirm
-      @post = Post.new(post_params)
-    end
+    # def confirm
+    #   @post = Post.new(flash[:post])
+    #   @post.status = 1
+    #   @post.created_user_id = current_user.id
+    #   @post.updated_user_id = current_user.id    
+    #   if @post.save 
+    #     redirect_to posts_path, notice: "Post info correct!"
+    #    else
+    #     render :confirm
+    #   end    
+    # end
+    # def confirm_create
+    #   @post = Post.new(post_params)
+    #   @post.status = 1
+    #   @post.created_user_id = current_user.id
+    #   @post.updated_user_id = current_user.id      
+    #   if @post.save        
+    #     redirect_to posts_path, notice: "Post created!"
+    #    else
+    #     render :new
+    #   end      
+    # end
+    
+    # def create
+    #   @post = Post.new(post_params)
+    #   @post.status = 1
+    #   @post.created_user_id = current_user.id
+    #   @post.updated_user_id = current_user.id      
+    #   if @post.valid? 
+    #     flash[:post] = @post
+    #     redirect_to confirm_posts_path, notice: "Post info correct!"
+    #    else
+    #     render :new
+    #   end      
+    # end
   
     def create
       @post = Post.new(post_params)
       @post.status = 1
       @post.created_user_id = current_user.id
       @post.updated_user_id = current_user.id
-      if @post.save
+      if @post.save 
         redirect_to posts_path, notice: "Post Created!"
-      else
+       else
         render :new
-      end
+      end      
     end
 
     def edit

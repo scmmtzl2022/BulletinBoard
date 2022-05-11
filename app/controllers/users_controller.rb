@@ -35,13 +35,9 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/users'
     else
-      render :new
+        render :new
     end
   end
-  def sign_up
-    @user = User.new
-  end
-
   
   def edit
     @user = User.find(params[:id])
@@ -68,7 +64,6 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-
     redirect_to users_path
   end
 
