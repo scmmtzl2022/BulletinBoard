@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   # for posts
   resources :posts do
     collection do
-      post 'posts/confirm', to: 'posts#confirm', as: 'confirm'
-      get :confirm, to: "posts#new"
+      get  :confirm
       post :confirm_create
       get :upload_csv
       post :import_csv
@@ -46,7 +45,7 @@ Rails.application.routes.draw do
  
   get 'logout', to: 'sessions#logout'
   post 'login', to: 'sessions#create'
-  post 'sign_up', to: 'users#sign_up'
+  post 'sign_up', to: 'users#create'
   post 'sign_up', to: 'sessions#sign_up'
   
   get 'welcome', to: 'sessions#welcome'
