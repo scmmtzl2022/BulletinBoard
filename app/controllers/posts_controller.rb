@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     if admin?
       @posts = Post.all
     else
-     @posts = Post.where(:user_id => current_user.id)    
+     @posts = Post.where(:created_user_id => current_user.id)    
     end
   end 
 
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
     def confirm_create
       @post = Post.new(post_params)
       @post.status = 1
-      @post.user_id = current_user.id
+      @post.created_user_id = current_user.id
       @post.updated_user_id = current_user.id      
       if @post.save        
         redirect_to posts_path, notice: "Post created!"
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
     def create
       @post = Post.new(post_params)
       @post.status = 1
-      @post.user_id = current_user.id
+      @post.created_user_id = current_user.id
       @post.updated_user_id = current_user.id      
       if @post.valid? 
         flash[:post] = @post
@@ -90,22 +90,22 @@ class PostsController < ApplicationController
     end
   
     def import_csv
-        updated_user_id = current_user.id
-        user_id = current_user.id
-        if (params[:file].nil?)
-            redirect_to upload_csv_posts_path, notice: "Require File"        
-        elsif !File.extname(params[:file]).eql?(".csv")
-            redirect_to upload_csv_posts_path, notice: "Wrong File Type"  
-        else
-            error_msg = PostsHelper.check_header(["title", "description", "status"],params[:file])
-            if error_msg.present?
-                redirect_to upload_csv_posts_path, notice: error_msg
-            else 
-                Post.import(params[:file],user_id,updated_user_id)
-                redirect_to posts_path, notice: "Imported Successfully!"
-            end
-        end
-    end
+      updated_user_id = current_user.id
+      created_user_id = current_user.id
+      if (params[:file].nil?)
+          redirect_to upload_csv_posts_path, notice: "Require File"        
+      elsif !File.extname(params[:file]).eql?(".csv")
+          redirect_to upload_csv_posts_path, notice: "Wrong File Type"  
+      else
+          error_msg = PostsHelper.check_header(["title", "description", "status"],params[:file])
+          if error_msg.present?
+              redirect_to upload_csv_posts_path, notice: error_msg
+          else 
+              Post.import(params[:file],created_user_id,updated_user_id)
+              redirect_to posts_path, notice: "Imported Successfully!"
+          end
+      end
+  end
   
 
     private

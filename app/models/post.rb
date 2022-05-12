@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  belongs_to :created_user, class_name: "User", foreign_key: "user_id"
+  belongs_to :created_user, class_name: "User", foreign_key: "created_user_id"
   belongs_to :updated_user, class_name: "User", foreign_key: "updated_user_id"
 
   
@@ -25,11 +25,11 @@ class Post < ApplicationRecord
     end
   end
 
-  def self.import(file,user_id,updated_user_id)        
+  def self.import(file,created_user_id,updated_user_id)        
     CSV.foreach(file.path, headers: true,encoding:'iso-8859-1:utf-8',:quote_char => "|", header_converters: :symbol) do |row|            
-        Post.create! row.to_hash.merge(user_id: user_id, updated_user_id: updated_user_id)
+        Post.create! row.to_hash.merge(created_user_id: created_user_id, updated_user_id: updated_user_id)
     end
   end
   #destroy post when user deleted
-  belongs_to :user
+  #belongs_to :user, optional: true
 end
