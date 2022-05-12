@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2022_05_03_073147) do
     t.string "title"
     t.text "description"
     t.integer "status"
-    t.integer "created_user_id"
+    t.integer "user_id"
     t.integer "updated_user_id"
     t.integer "deleted_user_id"
     t.datetime "deleted_at"

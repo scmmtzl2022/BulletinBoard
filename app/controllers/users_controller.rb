@@ -63,8 +63,24 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    # Debug
+    logger.debug "Debugggg for userrrrrrrrrrrrrrrrrrrrrrrrrrr"
+    # Debug
+    puts @user.inspect
+    
+    @user.deleted_user_id = current_user.id  
+    @user.save    
+    @posts = User.where(:created_user_id => @user.id)
+    #@posts = User.includes(:posts).where(:posts.user_id => @user.id)
+    # Debug
+    logger.debug "Debugggg for postssssssssssssssssssssssss"
+    # Debug
+    puts @posts.inspect
+    @posts.each do |post|
+      post.destroy
+    end
     @user.destroy
-    redirect_to users_path
+    redirect_to users_path, notice: "Successfully deleted user and it's all posts!"
   end
 
   private
