@@ -20,8 +20,9 @@
 </thead>
 
 <tbody>
-    <tr>
+    
     <% @users.each do |user| %>
+    <tr>
         <td> <%= user.id %> </td>
         <td><%= link_to user.name, user_path(user), {:remote => true, 'data-toggle' =>  "modal"} %></td>
         <td> <%= user.email %> </td>
@@ -30,18 +31,37 @@
         <td> <%= user.phone %> </td>
         <td> <%= user.dob %> </td>
         <td> <%= user.address %> </td>
+        <td>
+        <%= link_to 'Delete', '#', "data-toggle"=>"modal", "data-target" => "#deletepost_#{user.id}",:class=>'btn button1 button_del' %>
+        </td>
+
+        <div class="modal fade" id="deletepost_<%= user.id %>">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+            <h5 class="modal-title">User Detete Confirmation</h5>
+                </div>
+                <div class="modal-body">
+                <p>Are you sure you want to delete this user and its all posts?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" data-dismiss="modal" class="btn button1">Cancel</a>
+                    <%= link_to "Delete", user_path(user), method: :delete, class: 'btn button1 button_del'%>
+                </div>
+            </div>
+            </div>
+        </div> 
         
        
         <td>
-        <%= link_to "Delete", user_path(user.id), class: 'btn button1 button2',
-        method: :delete,
-        data: { confirm: "Are you sure?" } %>
+      
         </td>
         
-
+     
         </tr>
+         <% end%>
+      
 
-    <% end %>
 </tbody>
 </table>
 <div id="userDetail" class="modal fade" aria-hidden="true">

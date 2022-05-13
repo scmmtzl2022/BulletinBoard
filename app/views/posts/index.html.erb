@@ -2,14 +2,13 @@
 <h1 class="float-left">Posts</h1>
 
 <%= link_to "New Post", new_post_path, class: 'display btn button1 mv-20 float-right' %>
-
     <%= link_to "Download",download_posts_path(format: :csv), class: 'display btn button1  float-right mv-r-20' %>
     
     <%= link_to "Upload",upload_csv_posts_path, class: 'display btn button1 float-right mv-r-20' %>
 
 
-<div class="table-responsive">
-<table  id="table_id" class="table">
+<div class="card_table">
+<table  id = "table_id" class = "table">
 
 <thead>
     <tr>
@@ -33,13 +32,12 @@
         <% if current_user.name == post.created_user.name || admin? %>
         <td>
         <%= link_to "Edit", edit_post_path(post), class: 'btn btn-dark mr-2' %>
-        <%= link_to 'Delete', '#', "data-toggle"=>"modal", "data-target" => "#deletepost_#{post.id}",:class=>'btn button1 button2' %>
+        <%= link_to 'Delete', '#', "data-toggle"=>"modal", "data-target" => "#deletepost_#{post.id}",:class=>'btn button1 button_del' %>
         </td>
-        <% end %>
-        
+        <% end %>               
         <div class="modal fade" id="deletepost_<%= post.id %>">
-            <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog">
+        <div class="modal-content">
                 <div class="modal-header">
             <h5 class="modal-title">Post Detete Confirmation</h5>
                 </div>
@@ -48,11 +46,12 @@
                 </div>
                 <div class="modal-footer">
                     <a href="#" data-dismiss="modal" class="btn button1">Cancel</a>
-                    <%= link_to 'Delete', post_path(post), method: :delete, :class => 'btn button1 button2' %>
+                    <%= link_to 'Delete', post_path(post), method: :delete, :class => 'btn button1 button_del' %>
                 </div>
             </div>
             </div>
-        </div>  
+        </div> 
+     
         </tr>          
         <% end %>
    
@@ -68,5 +67,6 @@
   </div>
 </div>
 </div>
+
 
 
