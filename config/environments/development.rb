@@ -1,7 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.action_mailer.default_url_options = { :host => "localhost:3000" }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -10,11 +9,11 @@ Rails.application.configure do
   config.cache_classes = false
 
   # Do not eager load code on boot.
-  config.eager_load = true
+  config.eager_load = false
 
   # Show full error reports.
-  config.consider_all_requests_local = false
-  config.action_controller.perform_caching = true
+  config.consider_all_requests_local = true
+
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
@@ -74,11 +73,13 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+  ActionMailer::Base.delivery_method = :sendmail
   config.action_mailer.delivery_method = :smtp
   host = 'localhost:3000'
   config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
     config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
+    :domain               => 'mail.google.com',
     :port                 => 587,
     :user_name            => ENV["MAILER_EMAIL"],
     :password             => ENV["MAILER_PASSWORD"],

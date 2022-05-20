@@ -2,7 +2,7 @@ class PasswordMailer < ApplicationMailer
   before_action :set_params
   def reset
     @user = params[:user]
-    mail(to: @user.email, subject: "WeBakeLove Order Confirmaiton - Order \##{@user.id}")
+    mail(to: @user.email, subject: "Reset password  - Request")
     
     # @token = params[:user].signed_id(purpose: "password_reset", expires_in: 15.minutes)
 
