@@ -3,7 +3,13 @@
     <div class="row">
         <div class="col-4">
                 <div class="form-group">
-                
+                <% if @user.profile.attached? %>
+                    <div class="img text-center mv-20"><%= image_tag @user.profile, style: 'height:120px;width:auto;' %> </div>
+                    <% end %>
+                    <div class="mv-20 text-center">
+                             <p><%= link_to "Edit", edit_user_path(@user), class: 'btn button1 btn-wid' %></p>
+                            <p><%= link_to "Change Password", edit_password_path(@user), class: 'btn button1 button2 btn-wid' %></p>
+                        </div>
                 </div>
         </div>
         <div class="col-8">
@@ -66,7 +72,9 @@
                 <div class="col-sm-8">
                     <label class="col-sm-10 col-form-label"><%= @user.updated_user.name %></label>
                 </div>
+                
             </div>
+            <%= link_to 'Back', users_path, class:"btn button1 button2 mv-20" %>
         </div>
     </div>
-</div>
+</div> 

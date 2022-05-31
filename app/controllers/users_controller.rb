@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  # skip_before_action :authorized, only: [:new, :create]
-  # skip_before_action :AdminAuthorized, except: [:destroy, :index]
+   skip_before_action :authorized, only: [:new, :create, :sign_up]
+   skip_before_action :AdminAuthorized, except: [:destroy, :index]
 
   def index
     @users = User.all
@@ -24,36 +24,19 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.role ||= 1;
     if current_user.present?
-    @user.create_user_id = current_user.id
+    @user.created_user_id = current_user.id
     @user.updated_user_id = current_user.id
     else
-    @user.create_user_id = 1
+    @user.created_user_id = 1
     @user.updated_user_id = 1
     end
     
     if @user.save
       session[:user_id] = @user.id
-      redirect_to '/welcome'
+      redirect_to '/users'
     else
-      render :new
+        render :new
     end
-  end
-
-  def validate_login
-    @user = User.find_by(email: params[:email])
-    if @user == nil
-      redirect_to handle_login_path, notice: "Please Create the Account"
-    elsif @user.authenticate(params[:password])
-
-      session[:user_id] = @user.id
-      redirect_to posts_path
-    elsif @user.password != params[:password]
-      redirect_to handle_login_path, notice: "Email and Password Missmatched"
-    end
-  end
-  def logout
-    session[:user_id] = nil
-    redirect_to root_path
   end
   
   def edit
@@ -80,13 +63,44 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    @posts = Post.where(created_user_id: params[:id])
 
-    redirect_to users_path
+    @posts.each do |data|
+      post = Post.find(data.id)
+      post.update_column(:deleted_user_id,current_user.id)
+      post.update_column(:deleted_at,Date.today)
+    end
+      @user.destroy
+      redirect_to users_path   
   end
+
+  # def destroy
+  #   @user = User.find(params[:id])
+  #   # Debug
+  #   logger.debug "Debugggg for userrrrrrrrrrrrrrrrrrrrrrrrrrr"
+  #   # Debug
+  #   puts @user.inspect
+    
+  #   @user.deleted_user_id = current_user.id  
+  #   @user.save    
+  #   @posts = User.where(:created_user_id => @user.id)
+    
+  #   # Debug
+  #   logger.debug "Debugggg for postssssssssssssssssssssssss"
+  #   # Debug
+  #   puts @posts.inspect
+  #   @posts.each do |post|
+  #     post.destroy
+  #   end
+  #   @user.destroy
+  #   redirect_to users_path, notice: "Successfully deleted user and it's all posts!"
+  # end
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :profile, :role, :phone, :address, :dob,   :create_user_id, :updated_user_id, :deleted_user_id, :deleted_at)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :phone, :dob, :address, :profile, :created_user_id, :updated_user_id, :deleted_user_id, :deleted_at)
+    end
+    def user_update_params
+      params.require(:user).permit(:name, :email, :role, :phone, :dob, :address, :profile, :updated_user_id)
     end
 end

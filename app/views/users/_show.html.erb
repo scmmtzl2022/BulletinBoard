@@ -4,10 +4,15 @@
   <span aria-hidden="true">&times;</span>
 </button>
 </div>
+
 <div class="modal-body">
     <div class="row">
         <div class="col-4">
-                
+            <div class="form-group">
+            <% if @user.profile.attached? %>
+            <div class="img text-center mv-20"><%= image_tag @user.profile, style: 'height:120px;width:auto;' %> </div>
+            <% end %>
+            </div>
         </div>
         <div class="col-8">
             <div class="form-group row">
@@ -73,6 +78,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal-footer">
 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 </div>

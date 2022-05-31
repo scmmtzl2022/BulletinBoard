@@ -5,7 +5,7 @@
     <div>
       <%= form.label :title, class:" col-form-label" %>
       <%= form.text_field :title, class:"form-control" %>
-      <% @post.errors.full_messages_for(:title).each do |message| %>
+      <span style="color:red;"><% @post.errors.full_messages_for(:title).each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>
@@ -13,7 +13,7 @@
     <div>
       <%= form.label :description, class:" col-form-label" %>
       <%= form.text_area :description, class:"form-control" %>
-      <% @post.errors.full_messages_for(:description).each do |message| %>
+      <span style="color:red;"><% @post.errors.full_messages_for(:description).each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>

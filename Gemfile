@@ -28,6 +28,13 @@ gem "cells-rails"
 gem 'slim'
 
 gem 'font-awesome-rails'
+gem "will_paginate"
+gem "will_paginate-bootstrap"
+
+
+gem 'ruby-debug-ide', '~> 0.7.3'
+
+gem 'debase', '~> 0.2.5.beta2'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

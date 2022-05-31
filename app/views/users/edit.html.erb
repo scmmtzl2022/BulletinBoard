@@ -3,7 +3,7 @@
   <div class="form-group form-wrapper">
       <h1>Edit User</h1>
 
-     <div><%= image_tag @user.profile, style: 'width:100px;' %> </div>
+    
       <div>
         <%= form.label :name, class:" col-form-label" %>
         <%= form.text_field :name, class:"form-control" %>
@@ -24,7 +24,7 @@
 
       <div>
         <%= form.label :Role, class:" col-form-label" %>
-        <%= form.select(:role, options_for_select([0,1], selected: @user.role.to_i) )%>
+        <%= form.select(:role, options_for_select([['admin','0'],['user','1']], selected: @user.role.to_i), {}, class: "form-control" )%>
       </div>
       
       <% end %>
