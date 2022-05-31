@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 
     @posts.each do |data|
       post = Post.find(data.id)
-      post.update_column(:deleted_user_id,1)
+      post.update_column(:deleted_user_id,current_user.id)
       post.update_column(:deleted_at,Date.today)
     end
       @user.destroy
